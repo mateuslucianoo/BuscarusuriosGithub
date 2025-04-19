@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Users</title>
+
+    <!-- Adicionando o Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Seu arquivo CSS personalizado (opcional) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Buscar Usuário GitHub</h1>
+        <form method="POST" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="username" class="form-control" placeholder="Digite o nome do usuário" required>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Buscar</button>
+                </div>
+            </div>
+        </form>
+
+        {% if dados %}
+        {% if dados.erro %}
+        <div class="alert alert-danger">
+            {{ dados.erro }}
+        </div>
+        {% else %}
+        <h2>Resultados:</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ dados.name }}</h5>
+                <p class="card-text"><strong>Bio:</strong> {{ dados.bio }}</p>
+                <p class="card-text"><strong>Localização:</strong> {{ dados.location }}</p>
+                <p class="card-text"><strong>Repositórios Públicos:</strong> {{ dados.public_repos }}</p>
+                <a href="{{ dados.html_url }}" class="btn btn-link" target="_blank">Ver no GitHub</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- Scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
